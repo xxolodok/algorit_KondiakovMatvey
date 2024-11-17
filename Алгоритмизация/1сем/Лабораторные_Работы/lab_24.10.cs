@@ -6,17 +6,17 @@ class lab
     static void Main()
     {
 
-        int m = Convert.ToInt32(Console.ReadLine());
-        int n = Convert.ToInt32(Console.ReadLine());
-        // int m = 4;
-        // int n = 5;
-        int[,] Matrix = new int[m, n];
-        // int[,] Matrix = {
-        //     {1,2,3,4,5},
-        //     {1,2,3,4,5},
-        //     {1,2,3,123,0},
-        //     {-1231,-2,-3,-4,0},
-        // };
+        // int m = Convert.ToInt32(Console.ReadLine());
+        // int n = Convert.ToInt32(Console.ReadLine());
+        int m = 4;
+        int n = 5;
+        // int[,] Matrix = new int[m, n];
+        int[,] Matrix = {
+            {1,2,3,4,5},
+            {1,2,3,5,4},
+            {1,2,3,123,0},
+            {-1231,-2,-3,-4,0},
+        };
 
         int[] ArrayIndexs = new int[n];
         int[] ColumnSum = new int[n];
@@ -24,13 +24,13 @@ class lab
         int[,] SortMatrix = new int[m, n];
 
         Random rand = new Random();
-        for (int i = 0; i < m; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                Matrix[i, j] = rand.Next(1, 100);
-            }
-        }
+        // for (int i = 0; i < m; i++)
+        // {
+        //     for (int j = 0; j < n; j++)
+        //     {
+        //         Matrix[i, j] = rand.Next(1, 100);
+        //     }
+        // }
 
         for (int i = 0; i < n; i++)
         {
@@ -71,6 +71,9 @@ class lab
         Console.WriteLine("После сортировки");
         PrintDoubleMatrix(SortMatrix);
 
+        // задача 2 v1.1
+
+
         Console.WriteLine("\n\nПары строк, состоящие из одинаковых элементов: ");
 
         int[] uniqueArr;
@@ -90,7 +93,6 @@ class lab
                 uniqueArr[o] = Matrix[i, o];
             }
             uniqueArr = uniqueArr.Distinct().ToArray();
-            Array.Sort(uniqueArr);
 
 
             for (int j = 0; j < m; j++)
@@ -105,7 +107,6 @@ class lab
                     uniqueArr2[o] = Matrix[j, o];
                 }
                 uniqueArr2 = uniqueArr2.Distinct().ToArray();
-                Array.Sort(uniqueArr2);
 
 
 
@@ -118,7 +119,7 @@ class lab
                 {
                     for (int o = 0; o < uniqueArr.Length; o++)
                     {
-                        if (uniqueArr[o] == uniqueArr2[o])
+                        if (uniqueArr.Contains(uniqueArr2[o]))
                         {
                             countEqualElements++;
                         }
@@ -135,6 +136,11 @@ class lab
 
             }
         }
+
+
+
+
+        // задача 3
         int[] row;
         int[] rowIndexes = new int[n];
         int[] col;
