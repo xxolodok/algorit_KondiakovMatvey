@@ -35,9 +35,9 @@ class lab
                 }
                 else
                 {
-                    currentLength = 0; // Сброс длины, если символ не a, b или c
+                    currentLength = 0; 
                 }
-                maxLength = Math.Max(maxLength, currentMax); // Обновление максимальной длины
+                maxLength = Math.Max(maxLength, currentMax);
 
             }
             str = Console.ReadLine();
