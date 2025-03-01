@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 
+
 class Program{
     static void Main(){
         Console.WriteLine("Выберите задачу: \n\t1. Первая задача;\n\t2. Вторая задача;");
