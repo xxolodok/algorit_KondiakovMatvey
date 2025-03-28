@@ -25,6 +25,7 @@ class Program{
         double result = 0;
         double firstOperand = 0;
         double secondOperand = 0;
+        bool error = false; //добвлена переменная для запоминания статуса ошибки завершения программы
     
         foreach(string c in expressionSplit){
             if(result==-1){
@@ -36,7 +37,14 @@ class Program{
             if(c == "*" || c == "+" || c == "-" || c == "/"){
                 if(!(OperandsStack.Count() == 0)){
                     firstOperand = OperandsStack.Pop();
-                    secondOperand = OperandsStack.Pop();
+
+                    try{                                        //try-catch для отловки нехватки операторов
+                        secondOperand = OperandsStack.Pop();
+                    }catch{
+                        error = true;
+                        break;
+                    }
+
                     switch(c){
                         case "*":
                             result = secondOperand * firstOperand;
@@ -59,11 +67,17 @@ class Program{
                 }
             }
         }
-        if(OperandsStack.Count() > 1){
-            Console.WriteLine("Ошибка вычисления или выражение некорректно");
+        if(!error){                                                 //обработка ошибок
+             if(OperandsStack.Count() > 1){
+            Console.WriteLine("Ошибка: Выражение некорректно");
         }else{
             Console.WriteLine($"Конечный результат: {OperandsStack.Pop()}");
         }
+        }else{
+            Console.WriteLine("Ошибка: Нехватка операндов для действия");
+
+        }
+       
     }
     static double IsNullOperand(){
         Console.WriteLine("Деление на 0 невозможно");
