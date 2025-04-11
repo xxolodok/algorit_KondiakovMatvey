@@ -1,4 +1,5 @@
 using System;
+using Microsoft.VisualBasic;
 
 delegate void horseWins();
 
@@ -11,15 +12,24 @@ class Program{
         }
 
         HorseRacing racing = new HorseRacing(100, horseList);
+        HorseFinish winsEvent = new HorseFinish();
+        winsEvent.horseFinishEvent += () => {Console.WriteLine("Есть победитель");};        
 
-        racing.horseWinEvent += () => {Console.WriteLine("Есть победитель");};        
-
-        racing.Start();
+        racing.Start(winsEvent);
     }
 }
 
+class HorseFinish{
+    public event horseWins horseFinishEvent;
 
+    public void Raisehorsefinish(){
+        horseFinishEvent();
+    }
+
+}
 class Horse{
+    public Random r = new Random();
+
     public int horsePosition;
 
     public Horse(){
@@ -29,7 +39,6 @@ class Horse{
     public void Move()
     {
 
-        var r = new Random();
 
         horsePosition += r.Next(5, 10);
 
@@ -42,8 +51,6 @@ class HorseRacing{
     public Horse[] horseList;
     public bool isHorseWins;
 
-    public event horseWins horseWinEvent;
-
     public HorseRacing(int finishposition, Horse[] horselist){
         horseList = horselist;
         finishPosition = finishposition;
@@ -51,16 +58,16 @@ class HorseRacing{
     }
 
 
-    public void Start(){
+    public void Start(HorseFinish e){
         while(!isHorseWins){
             foreach(var horse in horseList){
                 horse.Move();
-                if(horse.horsePosition <= finishPosition){
+                if(horse.horsePosition < finishPosition){
                     
                     Console.WriteLine($"{horse.horsePosition}");
 
                 }else{
-                    horseWinEvent();
+                    e.Raisehorsefinish();          
                     isHorseWins = true;
                     break;
                 }

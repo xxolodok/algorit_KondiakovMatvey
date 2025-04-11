@@ -24,13 +24,19 @@ class Program
 
     }
 }
+
+class OutOfBounds{
+    public event OutOfBoundsDelegate OutOfBounds;
+    public void RaiseOutOfBoundsEvent(){
+        OutOfBounds();
+    }
+}
 class Point
 {
     public int X;
     public int Y;
     public bool isOutOfBounds;
 
-    public event OutOfBoundsDelegate OutOfBounds;
 
     public Point(int x, int y)
     {
@@ -39,14 +45,14 @@ class Point
         isOutOfBounds = false;
     }
 
-    public void Move(int deltaX, int deltaY, Field field)
+    public void Move(int deltaX, int deltaY, Field field, OutOfBounds e)
     {
         X = X + deltaX;
         Y = Y + deltaY;
 
         if (X < field.minX || Y < field.minY || X > field.maxX || Y > field.maxY)
         {
-            if (OutOfBounds != null) OutOfBounds();
+            
             Console.WriteLine($"{X}, {Y}");
             isOutOfBounds = true;
         }
