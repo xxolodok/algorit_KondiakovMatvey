@@ -1,29 +1,28 @@
 using System;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Linq;
 
-delegate List<string> sortedStringList(List<string> wordList);
+delegate List<string> SortedStringList(List<string> wordList);
 
-
-class program
+class Program
 {
     static void Main()
     {
         List<string> wordsList = new() { "мама", "мыло", "рама", "Москва", "окно", "молоко" };
 
-        sortedStringList sortedStringList = (wordsList) =>
+        SortedStringList filterWords = (words) =>
         {
-            var sortedWordList = new List<string>();
-            foreach (var word in wordsList)
+            List<string> filteredList = new List<string>();
+            foreach (var word in words)
             {
-                if (Regex.IsMatch(word, @"^[мМ].*"))
+                if (char.ToLower(word[0]) == 'м')
                 {
-                    sortedWordList.Add(word);
+                    filteredList.Add(word);
                 }
             }
-            return sortedWordList;
+            return filteredList;
         };
 
-        Console.WriteLine(string.Join(", ", sortedStringList(wordsList)));
+        Console.WriteLine(string.Join(", ", filterWords(wordsList)));
     }
-
 }

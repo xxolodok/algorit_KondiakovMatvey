@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-class Book
+struct Book
 {
     public string AuthorLastName { get; set; }  
     public string BookName { get; set; }       
